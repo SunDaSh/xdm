@@ -1,0 +1,199 @@
+setwd("C:/Users/CQ/Desktop/熊学院2016-8-1/熊学院准备资料/")
+pf=read.csv("电影票房数据（2010-2013）.csv",header=T)
+names(pf)
+a=pf[pf$boxoffice==max(pf$boxoffice),]
+b=pf[pf$boxoffice==min(pf$boxoffice),]
+summary(pf)
+pf$boxoffice=pf$boxoffice/10000
+max(pf$boxoffice)
+min(pf$boxoffice)
+hist(pf$boxoffice,xlab="电影票房（亿元）",ylab="频数",col="lightblue")
+mean(pf$boxoffice)
+median(pf$boxoffice)
+max(pf$boxoffice)
+table(pf$genre)
+boxplot(log(pf$boxoffice)~pf$sequel,ylab="票房(亿元)",col=c("lightblue","orange"),names=c("续集","非续集"))
+table(pf$导演年代)
+c30=pf[pf$导演年代=="30",]       
+c40=pf[pf$导演年代=="40",]   
+c50=pf[pf$导演年代=="50",]   
+c60=pf[pf$导演年代=="60",]   
+c70=pf[pf$导演年代=="70",]   
+c80=pf[pf$导演年代=="80",]   
+c50=c50[-1,]
+sum(c60$boxoffice)
+sum
+table(pf$第几部作品)
+boxplot(log(pf$boxoffice)~pf$导演年代,ylab="票房(亿元)",main="票房与导演年代",col="lightblue")
+c50=c50[c50$boxoffice!="NA",]
+c50
+sum(c50$boxoffice)
+boxplot(log(pf$boxoffice)~pf$主演1,ylab="票房(亿元)",col="orange")
+yanyuan1=pf[pf$baidu.index1==max(pf$baidu.index1),]
+pf[max(pf$baidu.index1),]
+yanyuan2=pf[pf$baidu.index2==max(pf$baidu.index2),]
+plot(pf$boxoffice~pf$baidu.index1)
+max(pf$主演1==table(pf$主演1)
+which()
+zhenzidan=pf[pf$主演1=="甄子丹",]
+gutianle=pf[pf$主演1=="古天乐",]
+max(gutianle$boxoffice)
+zhushu=pf[pf$baidu.index1==max(pf$baidu.index1),]
+quantile(pf$baidu.index1,c(0.01,0.99))
+max(pf$baidu.index1)
+min(pf$baidu.index1)
+d=pf[pf$baidu.index1==min(pf$baidu.index1),]
+table(pf$导演年代)
+pf=pf[pf$导演年代!="30",]
+pf=pf[pf$导演年代!="40",]
+X11()
+boxplot(log(pf$boxoffice)~pf$第几部作品,ylab="票房(亿元)",col="lightblue")
+x11()
+boxplot(log(pf$boxoffice)~pf$remake,ylab="票房(亿元)",names=c("非翻拍","翻拍"),col=c("lightblue","orange"))
+plot(pf$boxoffice~pf$runtime,xlab="放映时长",ylab="票房(亿元)") 
+abline(lm(pf$boxoffice~pf$runtime),col="red",lwd=3)
+plot(log(pf$boxoffice)~log(pf$zhishu),xlab="主演平均百度指数",ylab="票房(亿元)")
+cor(log(pf$boxoffice)~log(pf$zhishu))
+abline(lm(log(pf$boxoffice)~log(pf$zhishu)),col="red",lwd=3)
+
+x11()
+
+mean(pf$runtime)
+pf$genre=factor(pf$genre,levels=c("悬疑","灾难","魔幻","历史剧情","动作","警匪","主旋律","喜剧","爱情","励志","动画","儿童","家庭伦理","惊悚"))
+boxplot(log(pf$boxoffice)~pf$genre,ylab="票房(亿元)",col="lightblue")
+max(pf$runtime)
+?cor
+cor(pf$boxoffice,pf$第几部作品)
+exp(10)
+yanyuan=pf[pf$主演1=="杨幂",]
+
+pf$boxoffice=pf$boxoffice/10000
+#######
+pf$distribute=factor(pf$distribute,levels=c("L","G","C","S"))
+lm1=lm(log(boxoffice)~genre+style+distribute+story+runtime+reality+remake+sequel+导演得奖情况+导演是否转型+zhishu,data=pf)
+summary(lm1)
+par(mfrow=c(2,2))
+plot(lm1,which=c(1:4))
+
+lm1.aic=step(lm1,trace=F)
+summary(lm1.aic)
+table(pf$month)
+lm2=lm(log(boxoffice)~genre+distribute+story+reality+remake+sequel+导演得奖情况+导演是否转型+zhishu+style,data=pf)
+summary(lm2)
+par(mfrow=c(2,2))
+plot(lm2,which=c(1:4))
+####
+
+
+lm3=lm(log(boxoffice)~导演是否转型*genre+story+reality+remake+sequel+导演得奖情况+zhishu+style,data=pf)	
+summary(lm3)	
+
+#####
+table(pf$genre)
+pf=pf[pf$genre!="灾难",
+      
+####
+
+
+
+
+style=rep("其他",272)
+style[which(pf$month!=1&pf$month!=12)]="非贺岁档"		
+style[which(pf$month==10)]="十一档"
+style[which(pf$month>=6&pf$month<=9)]="暑期档"
+style[which(pf$month>=1&pf$month<=3)]="贺岁档"
+style[which(pf$month==12)]="贺岁档"
+style=factor(style,levels=c("五一档","十一档","暑期档","贺岁档"))
+pf=cbind(pf,style)	
+boxplot(log(pf$boxoffice)~pf$style,ylab="票房(亿元)",col="lightblue")
+
+######
+pf=pf[pf$genre!="灾难",]
+table(pf$genre)
+table(pf$genre)
+boxplot(log(pf$boxoffice)~pf$genre,ylab="票房(亿元)",col="lightblue")
+?barplot
+barplot(table(pf$genre),ylab="频数",col="lightblue")
+boxplot(log(pf$boxoffice)~pf$genre,col="lightblue",)
+########
+table(pf$genre)
+?write
+write(pf,"票房使用数据.csv",seq="C:/Users/CQ/Desktop")
+boxplot(log(pf$boxoffice)~pf$distribute,ylab="票房(亿元)",col="lightblue")
+table(pf$genre)
+
+
+
+######
+style2=rep("其他",274)
+style2[which(pf$genre=="主旋律")]="主旋律"		
+style[which(pf$month==10)]="十一档"
+style[which(pf$month>=6&pf$month<=9)]="暑期档"
+style[which(pf$month>=1&pf$month<=3)]="贺岁档"
+style[which(pf$month>=11&pf$month<=12)]="贺岁档"
+style=factor(style1,levels=c("场景","主旋律","情绪","形式","年龄"))
+pf=cbind(pf,style1)	
+boxplot(log(pf$boxoffice)~pf$style1,ylab="票房(亿元)",col="lightblue")
+pf$style1=factor(pf$style1,levels=c("场景","主旋律","情绪","形式","年龄"))
+boxplot(log(pf$boxoffice)~pf$style1,ylab="票房(亿元)",col="lightblue")
+
+
+#######
+style.1=rep("其他",274)
+> style.1[which(pf$genre=="历史")]="场景"
+> style.1[which(pf$genre=="灾难")]="场景"
+> style.1[which(pf$genre=="警匪")]="场景"
+> style.1[which(pf$genre=="魔幻")]="场景"
+> style.1[which(pf$genre=="爱情")]="情绪"
+> style.1[which(pf$genre=="动作")]="情绪"
+> style.1[which(pf$genre=="惊悚")]="情绪"
+> style.1[which(pf$genre=="喜剧")]="情绪"
+> style.1[which(pf$genre=="悬疑")]="情绪"
+> style.1[which(pf$genre=="励志")]="情绪"
+> style.1[which(pf$genre=="家庭伦理")]="情绪"
+> style.1[which(pf$genre=="动画")]="形式"
+> style.1[which(pf$genre=="儿童")]="年龄"
+> style.1[which(pf$genre=="主旋律")]="主旋律"
+> style.1=factor(style.1,levels=c("场景","主旋律","情绪","形式","年龄"))
+> pf=cbind(pf,style.1)
+> style.1=factor(style.1,levels=c("场景","主旋律","情绪","形式","年龄"))
+> pf=cbind(pf,style.1)
+> boxplot(log(pf$boxoffice)~pf$style2,ylab="票房(亿元)",col="lightblue")
+> style1[which(pf$genre=="主旋律")]="主旋律"
+> style=factor(style1,levels=c("情绪","场景","形式","年龄","主旋律"))
+> pf=cbind(pf,style1)
+> boxplot(log(pf$boxoffice)~pf$style1,ylab="票房(亿元)",col="lightblue")
+
+pf=pf[,-(pf$style.1)]
+dim[pf]
+dim(pf)
+pf=pf[,-26]
+
+
+######
+lb=rep("其他",272)
+lb[which(pf$genre=="主旋律")]="主旋律"		
+style3[which(pf$month==10)]="十一档"
+style3[which(pf$month>=6&pf$month<=9)]="暑期档"
+style3[which(pf$month>=1&pf$month<=3)]="贺岁档"
+style3[which(pf$month>=11&pf$month<=12)]="贺岁档"
+style3=factor(style3,levels=c("场景","主旋律","情绪","形式","年龄"))
+pf=cbind(pf,lb)	
+boxplot(log(pf$boxoffice)~pf$style1,ylab="票房(亿元)",col="lightblue")
+pf$style1=factor(pf$style1,levels=c("场景","主旋律","情绪","形式","年龄"))
+boxplot(log(pf$boxoffice)~pf$style3,ylab="票房(亿元)",col="lightblue")
+
+dim(pf)
+lm1.aic=step(lm1,trace=F)
+summary
+
+pf[is.na(pf)]=0
+
+table(pf$genre)
+
+pf=pf[,-25]
+
+lm1=lm(log(boxoffice)~as.factor(distribute)+as.factor(story)+as.factor(reality)+runtime+as.factor(remake)+as.factor(sequel)+as.factor(导演得奖情况)+as.factor(导演是否转型)+zhishu+as.factor(style)+as.factor(lb),data=pf)
+summary(lm1)
+par(mfrow=c(2,2))
+plot(lm1,which=c(1:4))
